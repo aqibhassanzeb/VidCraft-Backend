@@ -4,6 +4,8 @@ import { createClient } from '@supabase/supabase-js'
 
 import * as dotenv from "dotenv";
 import { v4 as uuidv4 } from 'uuid';
+import path from 'path';
+import { createOutputFolder } from '../utils/createOutputFolder';
 var fs = require('fs');
 
 
