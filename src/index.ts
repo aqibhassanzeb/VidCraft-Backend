@@ -25,6 +25,9 @@ createOutputFolder()
 app.get('/', (req: Request, res: Response) => {
   res.send('Mediacraft API');
 });
+app.get('/test', (req: Request, res: Response) => {
+  res.send('Backend is running..');
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
