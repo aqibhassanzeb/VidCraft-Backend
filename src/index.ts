@@ -16,7 +16,9 @@ const port = process.env.PORT || 5000;
 // parse application/json
 app.use(bodyParser.json({ limit: '100mb' }))
 
-app.use(cors())
+app.use(cors({
+  origin: 'https://vid-craft.vercel.app'
+}));
 
 app.use('/api', routes);
 
