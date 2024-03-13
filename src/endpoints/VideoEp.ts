@@ -11,7 +11,7 @@ var fs = require('fs');
 
 dotenv.config()
 
-const supabase = process.env.SUPABASE_URL && process.env.SUPABASE_KEY ? createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY) : null;
+const supabase =  createClient(process.env.SUPABASE_URL!, process.env.SUPABASE_KEY!)
 
 namespace VideoEp {
     export const mergeVideos = (req: any, res: any) => {
@@ -34,8 +34,14 @@ namespace VideoEp {
         // const mainVidUrl = './assets/input.mp4'
         // const overlayVideo = './assets/news.mp4'
 
-        const { mainVidUrl, overlayVideo, selectedTv } = req.body
-        console.log(selectedTv)
+        let { mainVidUrl, overlayVideo, selectedTv } = req.body
+        console.log('mainVidUrl', mainVidUrl)
+        console.log('overlayVideo', overlayVideo)
+        console.log('selectedTv', selectedTv)
+
+        if(!selectedTv) {
+            selectedTv = 'one'
+        }
 
         const complexFilterOption2Test = [
             '[1:v]scale=640:-1[scaled_overlay]',
@@ -67,7 +73,6 @@ namespace VideoEp {
             .on('progress', onProgress)
             .on('end', () => {
                 console.log('Processing finished!');
-                // res.send('Hello World!')
                 storeVideoOnSupabase()
             })
             .on('error', (err: any) => {
@@ -79,7 +84,6 @@ namespace VideoEp {
             if (progress.timemark != timemark) {
                 timemark = progress.timemark;
                 console.log('Time mark: ' + timemark + "...");
-                // sendProgress(`Time mark: ${timemark}...`);
             }
         }
 
@@ -87,12 +91,11 @@ namespace VideoEp {
             res.write(`data: ${JSON.stringify({ progress })}\n\n`);
         }
 
-        // storeVideoOnSupabase()
-
         function storeVideoOnSupabase() {
+            console.log('storing video on supabase', outputVideo)
             fs.readFile(outputVideo, function (fserr: any, data: any) {
                 supabase?.storage.from('final_videos').upload(`${dateString}_video.mp4`, data).then((fres) => {
-                    console.log(fres)
+                    console.log('supabase response', fres)
                     res.send(fres)
                     deleteFile()
                 }).catch((err) => {
