@@ -87,9 +87,9 @@ namespace VideoEp {
             }
         }
 
-        function sendProgress(progress: any) {
-            res.write(`data: ${JSON.stringify({ progress })}\n\n`);
-        }
+        // function sendProgress(progress: any) {
+        //     res.write(`data: ${JSON.stringify({ progress })}\n\n`);
+        // }
 
         function storeVideoOnSupabase() {
             console.log('storing video on supabase', outputVideo)
