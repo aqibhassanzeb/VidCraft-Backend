@@ -29,7 +29,7 @@ app.use('/api', routes);
 createOutputFolder()
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Mediacraft'); // Corrected the string literal
+  res.send('MediacraftAPI'); // Corrected the string literal
 });
 
 
