@@ -29,7 +29,7 @@ app.use('/api', routes);
 createOutputFolder()
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Mediacraft Backend API);
+  res.send('Mediacraft Backend APIs);
 });
 
 app.listen(port, () => {
