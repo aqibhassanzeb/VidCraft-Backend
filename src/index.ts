@@ -29,8 +29,9 @@ app.use('/api', routes);
 createOutputFolder()
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Mediacraft API);
+  res.send('Mediacraft Backend API'); // Corrected the string literal
 });
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
