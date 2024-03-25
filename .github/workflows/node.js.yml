@@ -19,7 +19,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm ci
-      - run: sudo pm2 restart index.ts
       - run: |
           touch .env
           echo "${{ secrets.PROD_ENV_FILE }}" > .env
