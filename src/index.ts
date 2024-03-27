@@ -18,11 +18,11 @@ app.use(bodyParser.json({ limit: '100mb' }))
 
 app.use(cors());
 
-// app.use(cors({
-//   origin: 'https://vid-craft.vercel.app',
-//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-//   credentials: false,
-// }));
+app.use(cors({
+  origin: 'https://vid-craft.vercel.app',
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: false,
+}));
 
 app.use('/api', routes);
 
