@@ -26,8 +26,10 @@ app.use(cors());
 
 app.use('/api', routes);
 
-createOutputFolder()
-
+// createOutputFolder()
+app.get('/test', (req: Request, res: Response) => {
+  res.send('backend running...'); 
+})
 app.get('/', (req: Request, res: Response) => {
   res.send('Mediacraft'); // Corrected the string literal
 });
