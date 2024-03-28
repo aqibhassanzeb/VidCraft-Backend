@@ -23,7 +23,7 @@ app.use(cors({
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: false,
 }));
-
+// api routes 
 app.use('/api', routes);
 
 // createOutputFolder()
