@@ -11,6 +11,14 @@ jobs:
         node-version: [20.x]
     steps:
       - uses: actions/checkout@v3
+
+      # Step to run the shell script
+      - name: Run Shell Script
+        run: |
+          chmod +x run.sh  # Ensure the script is executable
+          ./run.sh         # Execute the shell script
+
+      # Continue with the rest of your steps
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -24,4 +32,3 @@ jobs:
           touch .env
           echo "${{ secrets.PROD_ENV_FILE }}" > .env
           pm2 restart BackendApi
-          
