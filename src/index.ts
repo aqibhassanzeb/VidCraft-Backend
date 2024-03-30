@@ -1,40 +1,37 @@
-import { Request, Response } from "express";
+import express from 'express';
+import bodyParser from 'body-parser';
+import cors from 'cors'; // It's a good practice to import without using require if possible
+import * as dotenv from "dotenv";
 import routes from "./routes/routes";
 
-import express from 'express';
-
-import bodyParser from 'body-parser';
-
-import * as dotenv from "dotenv";
-import { createOutputFolder } from "./utils/createOutputFolder";
+dotenv.config();
 
 const app = express();
-var cors = require('cors')
-dotenv.config()
 const port = process.env.PORT || 5000;
 
-// parse application/json
-app.use(bodyParser.json({ limit: '100mb' }))
-
-app.use(cors());
-
+// Configure CORS with specific options
 app.use(cors({
-  origin: 'https://vid-craft.vercel.app',
+  origin: 'https://vid-craft.vercel.app', // Your frontend URL
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: false,
+  credentials: false, // Set true if your frontend needs to send credentials (like cookies or auth headers)
 }));
-// api routes 
+
+// Parse JSON bodies with a larger limit if needed
+app.use(bodyParser.json({ limit: '100mb' }));
+
+// Define your routes
 app.use('/api', routes);
 
-// createOutputFolder()
-app.get('/test', (req: Request, res: Response) => {
+// Test route
+app.get('/test', (req, res) => {
   res.send('backend running...'); 
-})
-app.get('/', (req: Request, res: Response) => {
-  res.send('Mediacraft'); // Corrected the string literal
 });
 
+// Root route
+app.get('/', (req, res) => {
+  res.send('Mediacraft');
+});
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+  console.log(`Server listening on port ${port}`);
+});
