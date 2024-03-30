@@ -37,5 +37,8 @@ const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
 
+server.timeout = 500000; // socket timeout
+server.headersTimeout = 500000; 
+
 // Set the server timeout
-server.setTimeout(500000);
+// server.setTimeout(500000);
