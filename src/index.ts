@@ -33,6 +33,9 @@ app.get('/', (req, res) => {
   res.send('Mediacraft');
 });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 });
+
+// Set the server timeout
+server.setTimeout(500000);
