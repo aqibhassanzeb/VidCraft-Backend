@@ -12,6 +12,7 @@ const port = process.env.PORT || 5000;
 // Configure CORS with specific options
 app.use(cors({
   origin: 'https://vid-craft.vercel.app', // Your frontend URL
+  optionsSuccessStatus: 200,
   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
   credentials: false, // Set true if your frontend needs to send credentials (like cookies or auth headers)
 }));
