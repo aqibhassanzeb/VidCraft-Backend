@@ -9,13 +9,16 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 5000;
 
+// Enable CORS
+app.use(cors());
+
 // Configure CORS with specific options
-app.use(cors({
-  origin: 'https://vid-craft.vercel.app',
-  optionsSuccessStatus: 200,
-  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-  credentials: false,
-}));
+// app.use(cors({
+//   origin: 'https://vid-craft.vercel.app',
+//   optionsSuccessStatus: 200,
+//   methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+//   credentials: false,
+// }));
 
 // Parse JSON bodies with a larger limit if needed
 app.use(bodyParser.json({ limit: '100mb' }));
