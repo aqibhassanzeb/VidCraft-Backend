@@ -1,4 +1,7 @@
-import Ffmpeg from 'fluent-ffmpeg';
+import ffmpeg from 'fluent-ffmpeg';
+import ffmpegInstaller from '@ffmpeg-installer/ffmpeg'
+// const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg');
+// const ffmpeg = require('fluent-ffmpeg');
 
 import { createClient } from '@supabase/supabase-js'
 
@@ -6,6 +9,9 @@ import * as dotenv from "dotenv";
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import { createOutputFolder } from '../utils/createOutputFolder';
+ffmpeg.setFfmpegPath(ffmpegInstaller.path);  // Setting the path for the ffmpeg executable
+
+
 var fs = require('fs');
 
 
@@ -64,11 +70,11 @@ namespace VideoEp {
             '[overlayed_video][scaled_overlay]overlay=1009:307'
         ]
 
-        Ffmpeg()
+        ffmpeg()
             .input(mainVidUrl)
-            .input(overlayVideo)
-            .input(selectedTv == 'one' ? selectedTv1 : selectedTv2)
-            .complexFilter(selectedTv == 'one' ? complexFilterOption1 : complexFilterOption2)
+            // .input(overlayVideo)
+            // .input(selectedTv == 'one' ? selectedTv1 : selectedTv2)
+            // .complexFilter(selectedTv !== 'one' ? complexFilterOption1 : complexFilterOption2)
             .output(outputVideo)
             .on('progress', onProgress)
             .on('end', () => {
