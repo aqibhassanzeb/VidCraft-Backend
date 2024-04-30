@@ -45,9 +45,6 @@ namespace VideoEp {
         console.log('overlayVideo', overlayVideo)
         console.log('selectedTv', selectedTv)
 
-        if(!selectedTv) {
-            selectedTv = 'one'
-        }
 
         const complexFilterOption2Test = [
             '[1:v]scale=640:-1[scaled_overlay]',
@@ -57,34 +54,63 @@ namespace VideoEp {
         ]
 
         const complexFilterOption1 = [
-            '[1:v]scale=615:-1[scaled_overlay]',
-            '[2:v]scale=640:-1[scaled_image]',
-            '[0:v][scaled_image]overlay=1000:200[overlayed_video]',
-            '[overlayed_video][scaled_overlay]overlay=1008:290'
+            '[1:v]scale=610:330[scaled_overlay]',
+            '[2:v]scale=626:453[scaled_image]',
+            '[0:v][scaled_image]overlay=1200:250[overlayed_video]',
+            '[overlayed_video][scaled_overlay]overlay=1209:255'
+            
         ]
+        // const complexFilterOption1 = [
+        //     '[1:v]scale=615:-1[scaled_overlay]',
+        //     '[2:v]scale=640:-1[scaled_image]',
+        //     '[0:v][scaled_image]overlay=1000:200[overlayed_video]',
+        //     '[overlayed_video][scaled_overlay]overlay=1008:290'
+        // ]
 
         const complexFilterOption2 = [
             '[1:v]scale=610:-1[scaled_overlay]',
             '[2:v]scale=626:353[scaled_image]',
-            '[0:v][scaled_image]overlay=1000:300[overlayed_video]',
-            '[overlayed_video][scaled_overlay]overlay=1009:307'
+            '[0:v][scaled_image]overlay=1200:250[overlayed_video]',
+            '[overlayed_video][scaled_overlay]overlay=1209:255'
         ]
+        // const complexFilterOption2 = [
+        //     '[1:v]scale=320:-1[scaled_tv_image]',
+        //     '[0:v]scale=640:-1[scaled_video]',                      
+        // ]
 
-        ffmpeg()
-            .input(mainVidUrl)
-            // .input(overlayVideo)
-            // .input(selectedTv == 'one' ? selectedTv1 : selectedTv2)
-            // .complexFilter(selectedTv !== 'one' ? complexFilterOption1 : complexFilterOption2)
-            .output(outputVideo)
-            .on('progress', onProgress)
-            .on('end', () => {
-                console.log('Processing finished!');
-                storeVideoOnSupabase()
-            })
-            .on('error', (err: any) => {
-                console.error('Error:', err);
-            })
-            .run();
+        if(selectedTv){
+            ffmpeg()
+                .input(mainVidUrl)
+                .input(overlayVideo)
+                .input(selectedTv == 'one' ? selectedTv1 : selectedTv2)
+                .complexFilter(selectedTv == 'one' ? complexFilterOption1 : complexFilterOption2)
+                .output(outputVideo)
+                .on('progress', onProgress)
+                .on('end', () => {
+                    console.log('Processing finished!');
+                    storeVideoOnSupabase()
+                })
+                .on('error', (err: any) => {
+                    console.error('Error:', err);
+                })
+                .run();
+        }else{
+            ffmpeg()
+                .input(mainVidUrl)
+                // .input(overlayVideo)
+                // .input(selectedTv == 'one' ? selectedTv1 : selectedTv2)
+                // .complexFilter(selectedTv !== 'one' ? complexFilterOption1 : complexFilterOption2)
+                .output(outputVideo)
+                .on('progress', onProgress)
+                .on('end', () => {
+                    console.log('Processing finished!');
+                    storeVideoOnSupabase()
+                })
+                .on('error', (err: any) => {
+                    console.error('Error:', err);
+                })
+                .run();
+                }
 
         function onProgress(progress: any) {
             if (progress.timemark != timemark) {
