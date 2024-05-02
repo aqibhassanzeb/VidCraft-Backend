@@ -6,7 +6,8 @@ const router = Router();
 
 // Middleware to extend the timeout
 const extendTimeout = (req: any, res: any, next: any) => {
-  req.setTimeout(500000); // Extend the timeout, e.g., 500000 milliseconds = 500 seconds
+  req.setTimeout(500000); 
+  // Extend the timeout, e.g., 500000 milliseconds = 500 seconds
   next();
 };
 
